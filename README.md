@@ -2,7 +2,6 @@
  
 Réalisation d’une application avec API JEE
 ● Site marchand (comme Amazon)
-
 ● un site web dédié aux utilisateurs fait en JSF. Il doit proposer une interface agréable et bien pensée.
 ○ Validation de formulaire avec JSF
 ○ Utilisation de f:ajax
