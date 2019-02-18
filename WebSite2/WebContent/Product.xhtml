@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"    
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+   	 	<h:outputStylesheet library="css" name="bootstrap.css"/>
+    	<h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    	<h:outputStylesheet library="css" name="entreprise.css"/>
+    	<title>Product</title>
+    </h:head>
+    <h:body>
+    	<nav class="navbar navbar-expand navbar-dark bg-dark">
+			    <a class="navbar-brand" href="Home.xhtml">WebSiteName</a>
+			    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+				    <div class="navbar-nav mr-auto">
+				    	<h:form styleClass="form-inline">
+					    	<c:if test="#{contactLogged.contactType == 2}">
+					     	 	<h:commandButton styleClass="btn btn-dark" value="Entreprise" action="Entreprise" />
+					    	</c:if>
+					    	<h:commandButton styleClass="btn btn-dark" value="Account" action="#" />
+					    </h:form>
+				    </div>
+				</div>
+		</nav>
+		
+		<!-- Pour une commande-->
+		<div class="col-10 persoProduct">
+			<h:form >
+				<div class ="form-group">
+		    		<h:outputText styleClass="control-label" value="#{productBean.name}"></h:outputText>
+	    		</div>
+	    		<div class="persoProduct">
+	    			<h:graphicImage value="#{entrepriseBean.imgDirectory}#{productBean.imageUrl}" styleClass="rounded mx-auto d-block imgPerso" />
+	    		</div>
+	    		<div class ="form-group">
+		    		<h:outputText styleClass="control-label" value="#{productBean.description}"></h:outputText>
+	    		</div>
+	    		<div class="row">
+		    		<div class ="col-6">
+		    			<div class="col-12"><h:outputText styleClass="control-label" value="#{productBean.categoryName}"></h:outputText></div>
+					</div>
+				
+					<div class="col-6">
+						<div class="col-12"><h:outputText styleClass="control-label" value="#{productBean.price}E"></h:outputText></div>
+					</div>
+				</div>
+	    		<div class="row">
+	    			<div class="col-4"><h:outputText styleClass="control-label" value="Quantité"></h:outputText></div>
+	    			<div class="col-2">
+		    			<h:inputText id="inputQuantity" styleClass="form-control" value="#{productBean.quantity}" validator="#{validatorBean.validateQuantity}" required="true">
+		    				<f:ajax event="blur" render="messageQuantity" />
+		    			</h:inputText>
+	    			</div>
+	    			<div class="col-8"><h:message id="messageQuantity" for="inputQuantity" class="alert alert-danger form-control" role="alert" /></div>
+	    		</div>
+				<br />
+	      		<h:commandButton styleClass="btn btn-dark btn-lg btn-block" value="Commander" action="#{productBean.commander}" />
+			</h:form>
+			
+			<!--  <div class="col-8"><h:message id="messageErrorQuantity" for="inputQuantity" class="alert alert-danger form-control" role="alert" /></div> -->
+		</div>
+    </h:body>
+</html>

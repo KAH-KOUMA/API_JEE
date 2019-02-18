@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f = "http://java.sun.com/jsf/core">
+    <h:head>
+    	<h:outputStylesheet library="css" name="bootstrap.css"/>
+    	<h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    	<h:outputStylesheet library="css" name="login.css"/>
+        <title>Login</title>
+    </h:head>
+    <h:body>
+    	<div class="sidenav">
+         	<div class="login-main-text">
+            	<h2>Application<br/> Login Page</h2>
+            	<p>Login or register from here to access.</p>
+        	</div>
+      	</div>
+    	<div class="main">
+         	<div class="col-md-6 col-sm-12">
+            	<div class="login-form">
+			    	<h:form>
+			    		<div class ="form-group">
+				    	   <h:outputText value="Email"></h:outputText>
+				    	   <h:inputText id="inputEmail" a:placeholder="E-mail" styleClass="form-control" value="#{contactBean.contactEmail}" validator="#{validatorBean.validateEmail}">
+				    	   		<f:ajax event="blur" render="messageEmail" />
+				    	   </h:inputText>
+				    	   <h:message id="messageEmail" for="inputEmail" class="alert alert-danger form-control" role="alert" />
+		    	   		 </div>
+			    	     <div class ="form-group">
+				    	   <h:outputText value="Mot de passe"></h:outputText>
+				    	   <h:inputSecret a:placeholder="Password" styleClass="form-control" value="#{contactBean.contactPassword}" />
+			    	     </div>
+			    	     <div class="row">
+			    	     	<div class="col-6"><h:commandButton styleClass="btn btn-black btn-block" value="Sign In" action="#{contactBean.connect}" /></div>
+			    	     	<div class="col-6"><h:commandButton styleClass="btn btn-secondary btn-block" value="Register" action="Register" /></div>
+			    		 </div>
+			    	</h:form>
+				</div>
+			</div>
+	    </div>
+    </h:body>
+</html>

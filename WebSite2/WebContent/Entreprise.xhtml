@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="entreprise.css" />
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<h:outputScript library="js" name="bootstrap.min.js" />
+	<h:outputScript library="js" name="entreprise.js" />
+	<title>Mon entreprise</title>
+</h:head>
+<h:body>
+	<nav class="navbar navbar-expand navbar-dark bg-dark">
+		<a class="navbar-brand" href="Home.xhtml">WebSiteName</a>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<div class="navbar-nav mr-auto">
+				<h:form styleClass="form-inline">
+					<c:if test="#{contactLogged.contactType == 2}">
+						<h:commandButton styleClass="btn btn-dark" value="Entreprise"
+							action="Entreprise" />
+					</c:if>
+					<h:commandButton styleClass="btn btn-dark" value="Account"
+						action="#" />
+				</h:form>
+			</div>
+
+			<div class="nav navbar-nav navbar-right">
+				<h:form styleClass="form-inline">
+					<div class="form-group">
+						<h:inputText styleClass="form-control mr-sm-2"
+							p:placeholder="Search" />
+					</div>
+					<h:selectOneMenu styleClass="form-control mr-sm-2" rows="1">
+						<f:selectItem itemValue="0" itemLabel="Category" />
+						<f:selectItem itemValue="1" itemLabel="Category 1" />
+						<f:selectItem itemValue="2" itemLabel="Category 2" />
+					</h:selectOneMenu>
+					<h:commandButton styleClass="btn btn-light" value="Chercher"
+						action="#{entrepriseBean.searchByEntreprise}" />
+				</h:form>
+			</div>
+		</div>
+	</nav>
+	<div class="col-12" style="height:15px;"></div>
+	<div class="row">
+		<div class="col-2">
+			<div class="menuLeft">
+				<c:if test="#{entrepriseBean.addProduct == false}">
+					<h:form>
+						<h:commandButton styleClass="btn btn-primary btn-block"
+							value="Mes produits" action="#" />
+						<h:commandButton styleClass="btn btn-secondary btn-block"
+							value="Ajouter un produit"
+							action="#{entrepriseBean.enableAddProduct}" />
+					</h:form>
+				</c:if>
+				<c:if test="#{entrepriseBean.addProduct == true}">
+					<h:form>
+						<h:commandButton styleClass="btn btn-secondary btn-block"
+							value="Mes produits" action="#{entrepriseBean.disableAddProduct}" />
+						<h:commandButton styleClass="btn btn-primary btn-block"
+							value="Ajouter un produit" action="#" />
+					</h:form>
+				</c:if>
+			</div>
+		</div>
+		<div class="col-10">
+			<h:form rendered="#{not entrepriseBean.addProduct}">
+				<div class="row">
+					<ui:repeat var="p" value="#{entrepriseBean.productsView}"
+						varStatus="status">
+						<div class="col-3">
+							<c:if test="#{p.stock == 0}">
+								<div class="col-12" style="background-color:red;">
+									<div class="col-12">
+										<h:graphicImage
+											value="#{entrepriseBean.imgDirectory}#{p.imageUrl}"
+											styleClass="rounded mx-auto d-block imgPerso" />
+									</div>
+									<div class="col-12">
+										<h:outputText value="#{p.name}"></h:outputText>
+									</div>
+									<div class="col-12">
+										<h:outputText value="#{p.categoryName}"></h:outputText>
+									</div>
+									<div class="col-12">
+										<div class="row">
+											<div class="col-6">
+												<h:outputText value="#{p.price}E"></h:outputText>
+											</div>
+											<div class="col-6">
+												<h:outputText value="#{p.stock}"></h:outputText>
+											</div>
+										</div>
+									</div>
+								</div>	
+							</c:if>
+							<c:if test="#{p.stock != 0}">
+								<div class="col-12">
+									<h:graphicImage
+										value="#{entrepriseBean.imgDirectory}#{p.imageUrl}"
+										styleClass="rounded mx-auto d-block imgPerso" />
+								</div>
+								<div class="col-12">
+									<h:outputText value="#{p.name}"></h:outputText>
+								</div>
+								<div class="col-12">
+									<h:outputText value="#{p.categoryName}"></h:outputText>
+								</div>
+								<div class="col-12">
+									<div class="row">
+										<div class="col-6">
+											<h:outputText value="#{p.price}E"></h:outputText>
+										</div>
+										<div class="col-6">
+											<h:outputText value="#{p.stock}"></h:outputText>
+										</div>
+									</div>
+								</div>
+							</c:if>
+						</div>
+					</ui:repeat>
+				</div>
+			</h:form>
+
+			<h:form rendered="#{entrepriseBean.addProduct}" enctype="multipart/form-data">
+				<div class="form-group">
+					<h:outputText styleClass="control-label" value="Nom du produit"></h:outputText>
+					<h:inputText styleClass="form-control"
+						value="#{entrepriseBean.productName}" required="true" />
+				</div>
+				<div class="form-group">
+					<h:outputText styleClass="control-label"
+						value="Description du produit"></h:outputText>
+					<h:inputTextarea styleClass="form-control"
+						value="#{entrepriseBean.productDescription}" rows="5"
+						required="true" />
+				</div>
+				<div class="row">
+					<div class="col-4">
+						<div class="col-6">
+							<h:outputText styleClass="control-label"
+								value="Catégorie"></h:outputText>
+						</div>
+						<div class="col-6">
+							<h:selectOneMenu styleClass="form-control"
+								value="#{entrepriseBean.productCategory}" rows="1">
+								<f:selectItem itemValue="0" itemLabel="Category" />
+								<f:selectItem itemValue="1" itemLabel="Category 1" />
+								<f:selectItem itemValue="2" itemLabel="Category 2" />
+							</h:selectOneMenu>
+						</div>
+					</div>
+
+					<div class="col-4">
+						<div class="col-6">
+							<h:outputText styleClass="control-label" value="Prix"></h:outputText>
+						</div>
+						<div class="col-6">
+							<h:inputText styleClass="form-control"
+								value="#{entrepriseBean.productPrice}" required="true" />
+						</div>
+					</div>
+
+					<div class="col-4">
+						<div class="col-6">
+							<h:outputText styleClass="control-label" value="Stock"></h:outputText>
+						</div>
+						<div class="col-6">
+							<h:inputText styleClass="form-control"
+								value="#{entrepriseBean.productStock}" required="true" />
+						</div>
+					</div>
+				</div>
+				<br />
+				<h:inputFile id="picUpload" class="form-control-file"
+							value="#{entrepriseBean.file}" />
+				<br />
+				<h:commandButton styleClass="btn btn-dark btn-lg btn-block"
+					value="Ajouter" action="#{entrepriseBean.addingProduct}" />
+
+			</h:form>
+		</div>
+	</div>
+</h:body>
+</html>

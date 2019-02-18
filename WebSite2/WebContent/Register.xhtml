@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+    	<h:outputStylesheet library="css" name="bootstrap.css"/>
+    	<h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    	<h:outputStylesheet library="css" name="login.css"/>
+        <title>Register</title>
+    </h:head>
+    <h:body>
+    	<div class="sidenav">
+         	<div class="login-main-text">
+            	<h2>Application<br/> Register Page</h2>
+            	<p>Login or register from here to access.</p>
+        	</div>
+      	</div>
+      	<div class="main">
+         	<div class="col-md-6 col-sm-12">
+            	<div class="login-form">
+			    	<h:form>
+			    		<div class ="form-group">
+				    		<h:outputText styleClass="control-label" value="Nom de famille"></h:outputText>
+				    		<h:inputText styleClass="form-control" value="#{contactBean.contactLastName}" required="true"/>
+			    		</div>
+			    		
+			    		<div class ="form-group">
+				    		<h:outputText styleClass="control-label" value="Prénom"></h:outputText>
+				    		<h:inputText styleClass="form-control" value="#{contactBean.contactFirstName}" required="true"/>
+			    		</div>
+			    		
+			    		<div class ="form-group">
+				    		<h:outputText value="Email"></h:outputText>
+				    	   	<h:inputText styleClass="form-control" type="email" value="#{contactBean.contactEmail}" required="true"/>
+			    	   	</div>
+			    	   	
+			    	   	<div class ="form-group">
+				    	   	<h:outputText value="Mot de passe"></h:outputText>
+				    	   	<h:inputSecret styleClass="form-control" value="#{contactBean.contactPassword}" required="true"/>
+			    	   	</div>
+			    	   	
+			    	   	<div class ="form-group">
+				    	   	<h:outputText value="Téléphone"></h:outputText>
+				    	   	<h:inputText styleClass="form-control" type="tel" value="#{contactBean.contactTel}" required="true"/>
+			    	   	</div>
+			    	   	
+			    	   	<div class ="form-group">
+				    	   	<h:outputText value="Vous êtes ?"></h:outputText>
+				    	   	<h:selectOneMenu styleClass="form-control" value = "#{contactBean.contactType}" rows="1">
+				    	   		<f:selectItem itemValue = "0" itemLabel = "Votre type" />  
+							   	<f:selectItem itemValue = "1" itemLabel = "Client" /> 
+							   	<f:selectItem itemValue = "2" itemLabel = "Entreprise" />
+							</h:selectOneMenu>
+						</div>
+						
+						<!-- Chargement de la partie pour l'enregistrement de l'adress de l'utilisateur -->
+			    	   	<div class ="form-group">
+				    	   	<h:outputText value="Numéro de votre rue plus son nom"></h:outputText>
+				    		<h:inputText styleClass="form-control" value="#{contactBean.road}" required="true"/>
+			    		</div>
+			    		
+			    		<div class ="form-group">
+				    		<h:outputText value="Numéro appartement"></h:outputText>
+				    		<h:inputText styleClass="form-control" value="#{contactBean.appartement}" required="false"/>
+			    		</div>
+			    		
+			    		<div class ="form-group">
+				    		<h:outputText value="Code postal"></h:outputText>
+				    		<h:inputText styleClass="form-control" value="#{contactBean.zip}" required="true">
+				    			<f:validateLength minimum = "5" maximum = "5" />
+				    		</h:inputText>
+			    		</div>
+			    		
+			    		<div class ="form-group">
+				    		<h:outputText value="Ville"></h:outputText>
+				    		<h:inputText styleClass="form-control" value="#{contactBean.city}" required="true"/>
+			    		</div>
+			    		
+			    		<div class ="form-group">
+				    		<h:outputText value="Pays"></h:outputText>
+				    		<h:inputText styleClass="form-control" value="#{contactBean.country}" required="true"/>
+			    		</div>
+			    	   	<h:commandButton styleClass="btn btn-black btn-block" value="Register" action="#{contactBean.register}" />
+			    	</h:form>
+			    </div>
+		    </div>
+	    </div>
+    </h:body>
+</html>

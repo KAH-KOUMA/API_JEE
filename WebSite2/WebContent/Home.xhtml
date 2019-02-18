@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"    
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+   	 	<h:outputStylesheet library="css" name="bootstrap.css"/>
+    	<h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    	<title>Nos produits</title>
+    </h:head>
+    <h:body>
+ 		<nav class="navbar navbar-expand navbar-dark bg-dark">
+			    <a class="navbar-brand" href="Home">WebSiteName</a>
+			    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+				    <div class="navbar-nav mr-auto">
+				    	<h:form styleClass="form-inline">
+					    	<c:if test="#{contactLogged.contactType == 2}">
+					     	 	<h:commandButton styleClass="btn btn-dark" value="Entreprise" action="Entreprise" />
+					    	</c:if>
+					    	<h:commandButton styleClass="btn btn-dark" value="Account" action="#" />
+					    </h:form>
+				    </div>
+				    
+				    <div class="nav navbar-nav navbar-right">
+				    	<h:form styleClass="form-inline">
+					      	<div class="form-group">
+					        	<h:inputText styleClass="form-control" p:placeholder="Search" value="#{entrepriseBean.productName}" />
+					      	</div>
+					      	<h:selectOneMenu styleClass="form-control" value ="#{entrepriseBean.productCategory}" rows="1">
+				    	   		<f:selectItem itemValue = "0" itemLabel = "Category" />  
+							   	<f:selectItem itemValue = "1" itemLabel = "Category 1" /> 
+							   	<f:selectItem itemValue = "2" itemLabel = "Category 2" />
+							</h:selectOneMenu>
+				      		<h:commandButton styleClass="btn btn-light" value="Chercher" action="#{entrepriseBean.searchByHome}" />
+				    	</h:form>
+				    </div>
+				</div>
+		</nav>
+		
+		<div class="container">
+			<div class="row">
+				<ui:repeat var="p" value="#{entrepriseBean.productsView}" varStatus="status">
+					<div class="col-3">
+						<div class="col-12"><h:graphicImage value="#{entrepriseBean.imgDirectory}#{p.imageUrl}" styleClass="rounded mx-auto d-block imgPerso"/></div>
+						<div class="col-12"><h:outputText value="#{p.name}"></h:outputText></div>
+						<div class="col-12"><h:outputText value="#{p.categoryName}"></h:outputText></div>
+						<div class="col-12">
+							<div class="row">
+								<div class="col-6"><h:outputText value="#{p.price}E"></h:outputText></div>
+								<div class="col-6"><h:outputText value="#{p.stock}"></h:outputText></div>
+							</div>
+						</div>
+						<h:form>
+							<div class="col-12"><h:commandButton styleClass="btn btn-dark btn-block" value="Commander" action="#{productBean.displayProduct(p.id)}" /></div>
+						</h:form>
+					</div>
+				</ui:repeat>
+			</div>
+		</div>
+    </h:body>
+</html>

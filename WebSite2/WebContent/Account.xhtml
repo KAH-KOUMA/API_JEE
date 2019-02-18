@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"    
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+   	 	<h:outputStylesheet librairy="css" name="bootstrap.min.css"/>
+    	<title>Mon compte</title>
+    </h:head>
+    <h:body>
+    	<nav class="navbar navbar-inverse">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="Home.xhtml">WebSiteName</a>
+		    </div>
+		    <ul class="nav navbar-nav">
+		      <li><a href="Home.xhtml">Home</a></li>
+		      <c:if test="#{contactLogged.contactType == 2}">
+		     	 <li><a href="Entreprise.xhtml">Mon Entreprise</a></li>
+		      </c:if>
+		      <li class="active"><a href="Account.xhtml">Mon compte</a></li>
+		    </ul>
+		    <h:form styleClass="navbar-form navbar-left" action="/action_page.php">
+		      <div class="form-group">
+		        <h:inputText styleClass="form-control" p:placeholder="Search"/>
+		      </div>
+		      <h:commandButton styleClass="btn btn-default" value="Chercher" action="#" />
+		    </h:form>
+		  </div>
+		</nav>
+    </h:body>
+</html>
